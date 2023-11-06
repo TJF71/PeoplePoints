@@ -60,7 +60,7 @@ namespace contactPro2.Controllers
             }
 
             Contact? contact = await _context.Contacts
-                              .Include(c => c.AppUser)
+                              .Include(c => c.Categories)
                               .FirstOrDefaultAsync(c => c.Id == id);
             if (contact == null)
             {
