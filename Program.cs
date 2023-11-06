@@ -3,6 +3,7 @@ using contactPro2.Models;
 using contactPro2.Services;
 using contactPro2.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,8 +22,9 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
 // Custom Services
 builder.Services.AddScoped<IImageService, ImageService>();
 
+builder.Services.AddScoped<IEmailSender, EmailService>();
 
-
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 builder.Services.AddControllersWithViews();
 
