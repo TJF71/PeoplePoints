@@ -1,0 +1,229 @@
+:root {
+    --tf-navAndFoot: #292004;
+    --tf-ligtText: #edf5fc ;
+    --tf-primaryColor: #0869b8;
+    --tf-primaryColorDark: #002a4e;
+    --tf-primaryColorLight: #edf5fc;
+    --tf-secondaryColor: #fff0d9;
+    --tf-secondaryColorLight: #FFF8EC;
+    --tf-dark-color: #131313;
+    --tf-light-gray: #d9d9d9;
+    --tf-light-color: #eeeeee;
+    --tf-title-font: 'Fira Sans', sans-serif;
+    --tf-body-font: 'Roboto', sans-serif;
+}
+
+html,
+body {
+    height: 50%;
+}
+
+img.appImage{
+    height: 100px;
+}
+
+body {
+    /* fallback for old browsers */
+    background-color: var(--tf-primaryColorLight);
+    display: flex;
+    flex-direction: column;
+    color: var(--tf-dark-color);
+    font-family: var(--tf-body-font);
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+/*--Button Overrides --*/
+/*-- Button styles override Bootstrap Styles --*/
+.btn-outline-primary {
+    color: var(--tf-dark-color);
+    border-color: var(--tf-primaryColor) !important;
+}
+
+    .btn-outline-primary:hover,
+    .btn-outline-primary:active,
+    .btn-outline-primary:focus {
+        border-color: var(--tf-secondaryColor) !important;
+        background-color: var(--tf-primaryColor);
+    }
+
+.btn-primary {
+    color: white !important;
+    background-color: var(--tf-primaryColor) !important;
+    border-color: var(--tf-secondary-color);
+}
+
+    .btn-primary:hover {
+        filter: brightness(1.2) !important;
+        border-color: var(--tf-primaryColorDark);
+    }
+
+    .btn-primary:active,
+    .btn-primary:visited,
+    .btn-primary:focus {
+        filter: brightness(1.2) !important;
+    }
+
+.btnlinks {
+    width: 7rem;
+}
+
+.navbar {
+    background-color: var(--tf-navAndFoot);
+
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--tf-title-font);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+
+main {
+    background-color: var(--tf-primaryColorLight);
+}
+
+.content {
+    flex: 1 0 auto;
+    padding-top: 7.5rem;
+    padding-bottom: 2.5rem;
+}
+
+.heroCard {
+    min-height: 100%;
+}
+
+.texthighlight {
+    color: var(--tf-primaryColor);
+
+}
+
+.heroTitle {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-family: var(--tf-title-font);
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+}
+
+.pageHeader {
+    background-color: var(--tf-secondaryColor);
+    padding-top: 7.5rem;
+    padding-bottom: 2.5rem;
+}
+
+.pageTitle {
+    font-family: var(--tf-title-font);
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 3rem;
+    text-transform: capitalize;
+}
+
+.navShadow {
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sideNav {
+    border-radius: 25px;
+    border-color: var(--tf-light-color);
+    border-style: solid;
+    border-width: 3px;
+    background-color: var(--tf-navAndFoot);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: fit-content;
+}
+
+.editIcons {
+    font-size: 1.5rem;
+    opacity: .9;
+    color: var(--tf-primaryColorDark);
+}
+
+    .editIcons:hover {
+        color: var(--tf-primaryColor);
+        font-weight: bold;
+        opacity: 1;
+        cursor: pointer;
+    }
+
+
+.icon {
+    font-size: 3.5rem;
+}
+
+.footer {
+    flex-shrink: 0;
+    background-color: var(--tf-navAndFoot);
+}
+
+.copyright {
+    color: var(--tf-ligtText);
+    font-size: .9rem;
+}
+
+.socialicons {
+    color: var(--tf-ligtText);
+    opacity: .9;
+    font-size: 2rem;
+}
+
+    .socialicons:hover {
+        color: var(--tf-primaryColor);
+        opacity: 1;
+        cursor: pointer;
+    }
+
+.square-img-container {
+    position: relative;
+    background-color: var(--tf-primaryColorLight);
+    border-color: var(--tf-light-gray);
+    border-style: solid;
+}
+
+    .square-img-container::after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+
+.square-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+
+.imgicon {
+    display: inline;
+    height: 3.5rem;
+    margin: 0rem .3rem;
+}
+
+figcaption {
+    color: var(--tf-dark-color);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .heroTitle {
+        font-size: 3.5rem;
+    }
+}
