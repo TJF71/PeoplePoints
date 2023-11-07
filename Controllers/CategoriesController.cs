@@ -173,12 +173,48 @@ namespace contactPro2.Controllers
             {
                 _context.Categories.Remove(category);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+
+        //// Get: SearchCategories
+        //public async Task<IActionResult> SearchCategories(string? searchString)
+        //{
+        //    List<Category> categories = new List<Category>();
+
+        //    string? userId = _userManager.GetUserId(User);
+
+        //    AppUser? appUser = await _context.Users
+        //                                     .Include(u => u.Contacts)
+        //                                     .ThenInclude(c => c.Categories)
+        //                                     .FirstOrDefaultAsync(u => u.Id == userId);
+        //    if (appUser != null)
+        //    {
+        //        if (string.IsNullOrEmpty(searchString))
+        //        {
+        //            categories = appUser.Categories.ToList();
+        //        }
+        //        else
+        //        {
+        //            categories = appUser.Categories.ToList();
+
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(nameof(Index), categories);
+        //}
+
+
+
+
+                private bool CategoryExists(int id)
         {
           return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
         }

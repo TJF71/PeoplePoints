@@ -37,16 +37,79 @@ namespace contactPro2.Controllers
         }
 
         // GET: Contacts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? categoryId)
         {
             string? userId = _userManager.GetUserId(User);
+            List<Contact> contacts = new List<Contact>();
 
-            IEnumerable<Contact> contacts = await _context.Contacts
-                                                     .Include(c => c.Categories)
-                                                     .Where(c => c.AppUserId == userId)
-                                                     .ToListAsync();
+            if (categoryId == null)
+            {
+                     contacts = await _context.Contacts
+                                        .Include(c => c.Categories)
+                                        .Where(c => c.AppUserId == userId)
+                                        .ToListAsync();
+
+            }
+            else
+            {
+                Category? category = new Category();
+
+                category = await _context.Categories
+                                 .Include(c => c.Contacts)
+                                 .FirstOrDefaultAsync(c=>c.Id == categoryId  &&  c.AppUserId == userId);
+                if(category != null)
+                {
+                    contacts = category.Contacts.ToList();
+                }
+         
+            }
+
+
+
+            string? appUserId = _userManager?.GetUserId(User);
+
+            ViewData["Categories"] = new SelectList(_context.Categories.Where(c => c.AppUserId == userId), "Id", "Name");
+      
             return View(contacts);
+
+
         }
+
+
+        // SearchContacts
+        public async Task<IActionResult> SearchContacts(string? searchString)
+        {
+            List<Contact> contacts = new List<Contact>();
+
+            string? userId = _userManager.GetUserId(User);
+
+            AppUser? appUser = await _context.Users
+                                             .Include(u => u.Contacts)
+                                             .ThenInclude(c => c.Categories)
+                                             .FirstOrDefaultAsync(u => u.Id == userId);
+            if (appUser != null)
+            {
+                if (string.IsNullOrEmpty(searchString))
+                {
+                    contacts = appUser.Contacts.ToList();
+                }
+                else
+                {
+                    contacts = appUser.Contacts
+                                        .Where(c => c.FullName!.ToLower().Contains(searchString.ToLower()))
+                                        .ToList();
+                }
+
+            }
+            else
+            {
+                return NotFound();
+            }
+
+
+            return View(nameof(Index), contacts);
+        }
+
 
         // GET: Contacts/Details/5
         public async Task<IActionResult> Details(int? id)
