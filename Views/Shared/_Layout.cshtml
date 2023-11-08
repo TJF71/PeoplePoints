@@ -23,7 +23,7 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 @if (!User.Identity!.IsAuthenticated)
                 {
@@ -35,7 +35,7 @@
                 else
                 {
                     <img src="~/img/Logo_Only.svg" height="50">
-                    <a class="navbar-brand nav-link dropdown-toggle" data-bs-toggle="dropdown">People Points</a>
+                    <a class="navbar-brand nav-link dropdown-toggle text-light" data-bs-toggle="dropdown">People Points</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" asp-area="Contacts" asp-controller="Contacts" asp-action="">Contacts</a>
                         <a class="dropdown-item" asp-area="Categories" asp-controller="Categories" asp-action="">Categories</a>
@@ -69,27 +69,7 @@
         </section>
     </div>
 
-    @*     <footer class="footer container-fluid">
-    <div class="row align-items-center py-2">
-    <div class="col">
-    <div class="row align-items-center gy-2">
-    <div class="col d-flex justify-content-center justify-content-md-start order-last order-md-first copyright">
-    &copy; @DateTime.Now.Year Tom Farrell
-    </div>
-    <div class="col d-flex justify-content-center">
-    <img src="/img/LogoOnly.svg" height="100">
-    </div>
-    <div class="col-12 col-md d-flex justify-content-center justify-content-md-end">
-    <a href="https://www.linkedin.com/school/coderfoundry/" class="socialicons"><i class="bi bi-linkedin p-2 "></i></a>
-    <a href="https://twitter.com/coderfoundry" class="socialicons"><i class="bi bi-twitter p-2"></i></a>
-    <a href="https://www.youtube.com/channel/UCTGgxc_jIz2z9mpfInuPHWQsite" class="socialicons"><i class="bi bi-youtube p-2"></i></a>
-    <a href="#" class="socialicons"><i class="bi bi-instagram p-2 "></i></a>
-    </div>
-    </div>
-    </div>
-    </div>
-    </footer>
-    *@
+ 
 
 
     <footer class="footer container-fluid">

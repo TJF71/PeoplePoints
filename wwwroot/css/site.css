@@ -15,7 +15,7 @@
 
 html,
 body {
-    height: 50%;
+    height: 100%;
 }
 
 img.appImage{
@@ -94,6 +94,7 @@ main {
     flex: 1 0 auto;
     padding-top: 7.5rem;
     padding-bottom: 2.5rem;
+
 }
 
 .heroCard {

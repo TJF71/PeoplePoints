@@ -23,12 +23,12 @@
             <div class="input-group">
                 <input class="form-control" type="search" name="searchString"
                        placeholder="Contact Name" />
-                <input type="submit" class="btn btn-outline-primary" value="Search" />
+                <input type="submit" class="btn btn-outline-primary text-light" value="Search" />
             </div>
         </form>
         <form asp-action="Index" asp-controller="Contacts" method="post">
             <div class="mt-5">
-                <label class="form-label fw-bold">CATEGORY FILTER</label>
+                <label class="form-label fw-bold text-light">CATEGORY FILTER</label>
                 <select name="categoryId" class="form-control" asp-items="ViewBag.Categories"
                         onchange="this.form.submit()" onfocus="this.selectedIndex=-1;this.blur();">
                     <option>All Contacts</option>
@@ -47,7 +47,7 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4 square-img-container">
-                                    <img src="" class="square-img rounded-start">
+                                    <img src="/img/DefaultContactImage.png" class="square-img rounded-start">
      
                                 </div>
                                 <div class="col-md-8">
@@ -59,8 +59,10 @@
                                             {
                                               @contact.Address2 <br>                                                
                                             }
-                                           
-                                            @contact.City, @contact.State @contact.ZipCode
+                                            else {
+                                            @contact.City @contact.State @contact.ZipCode
+                                            }
+
                                         </address>
                                         <div class="card-text">
                                             <span class="fw-bold me-2">Phone:</span>@contact.PhoneNumber
