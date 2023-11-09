@@ -49,7 +49,7 @@
             </div>
         </form>
         <form asp-action="Index" asp-controller="Contacts" method="post">
-            <div class="mt-5">
+            <div class="mt-5 ">
                 <label class="form-label fw-bold text-light">CATEGORY FILTER</label>
                 <select name="categoryId" class="form-control" asp-items="ViewBag.Categories"
                         onchange="this.form.submit()" onfocus="this.selectedIndex=-1;this.blur();">
@@ -69,7 +69,8 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4 square-img-container">
-                                    <img src="/img/DefaultContactImage.png" class="square-img rounded-start">
+
+                                    <img src="@_ImageService.ConvertByteArrayToFile(contact.ImageData,contact.ImageType)" class="square-img rounded-start">
      
                                 </div>
                                 <div class="col-md-8">
@@ -93,7 +94,7 @@
                                             <span class="fw-bold me-2">Email:</span>@contact.Email
                                         </div>
                                         <div class="fs-4">
-                                            <a class="me-3 editIcons" asp-action="Create" asp-route-id="@contact.Id"><i class="bi bi-pencil-fill "></i></a>
+                                            <a class="me-3 editIcons" asp-action="Edit" asp-route-id="@contact.Id"><i class="bi bi-pencil-fill "></i></a>
                                             <a class="me-3 editIcons" asp-action="EmailContact" asp-route-id="@contact.Id"><i class="bi bi-envelope-fill "></i></a>
                                             <a class="me-3 editIcons" asp-action="Delete" asp-route-id="@contact.Id"><i class="bi bi-trash-fill text-danger "></i></a>
                                         </div>

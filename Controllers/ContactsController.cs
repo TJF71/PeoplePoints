@@ -243,6 +243,14 @@ namespace contactPro2.Controllers
                 {
                     contact.Updated = DateTimeOffset.Now;
 
+                    if (contact.ImageFile != null)
+                    {
+                        // use image service
+                        contact.ImageData = await _imageService.ConvertFileToByteArrayAsync(contact.ImageFile);
+                        contact.ImageType = contact.ImageFile.ContentType;
+                    }
+
+
                     _context.Update(contact);
                     await _context.SaveChangesAsync();
 
