@@ -1,10 +1,30 @@
-﻿@using contactPro2.Services.Interfaces;
+﻿@model IEnumerable<Contact>
+@using contactPro2.Services.Interfaces;
 @inject IImageService _ImageService;
-@model IEnumerable<Contact>
+
 
 
 @{
     ViewData["Title"] = "Index";
+    string searchTerm = ViewBag.SearchTerm ?? "";
+    string filterTerm = ViewBag.FilterTerm;
+
+    string pageUse = ViewBag.PageUse;
+    string pageTitle = string.Empty;
+
+    switch (pageUse)
+    {
+        case "Index":
+            pageTitle = "MyContacts";
+            break;
+        case "Search":
+            pageTitle = $"Search Results for {searchTerm}";
+            break;
+        case "Filter":
+            pageTitle = $"Contacts in {filterTerm} category";
+            break;
+    }
+
 }
 
 
@@ -21,7 +41,7 @@
     <div class="col-12 col-md-4 sideNav">
         <form asp-action="SearchContacts" asp-controller="Contacts" method="post">
             <div class="input-group">
-                <input class="form-control" type="search" name="searchString"
+                <input class="form-control" type="search" name="searchString" value="@searchTerm"
                        placeholder="Contact Name" />
                 <input type="submit" class="btn btn-outline-primary text-light" value="Search" />
             </div>

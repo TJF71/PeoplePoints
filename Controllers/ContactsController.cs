@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 namespace contactPro2.Controllers
 {
     [Authorize]
-    public class ContactsController : Controller
+    public class ContactsController : CPBaseController
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
@@ -39,14 +39,17 @@ namespace contactPro2.Controllers
         // GET: Contacts
         public async Task<IActionResult> Index(int? categoryId)
         {
-            string? userId = _userManager.GetUserId(User);
+            //string? userId = _userManager.GetUserId(User);
+
+            int selectedFilter = 0;
+
             List<Contact> contacts = new List<Contact>();
 
             if (categoryId == null)
             {
                      contacts = await _context.Contacts
                                         .Include(c => c.Categories)
-                                        .Where(c => c.AppUserId == userId)
+                                        .Where(c => c.AppUserId == _userId)
                                         .ToListAsync();
 
             }
@@ -56,11 +59,15 @@ namespace contactPro2.Controllers
 
                 category = await _context.Categories
                                  .Include(c => c.Contacts)
-                                 .FirstOrDefaultAsync(c=>c.Id == categoryId  &&  c.AppUserId == userId);
+                                 .FirstOrDefaultAsync(c=>c.Id == categoryId  &&  c.AppUserId == _userId);
                 if(category != null)
                 {
                     contacts = category.Contacts.ToList();
+                    selectedFilter = category.Id;
                 }
+
+                ViewData["PageUse"] = "Fiter";
+                ViewData["FilterTerm"] = category.Name;
          
             }
 
@@ -68,7 +75,7 @@ namespace contactPro2.Controllers
 
             string? appUserId = _userManager?.GetUserId(User);
 
-            ViewData["Categories"] = new SelectList(_context.Categories.Where(c => c.AppUserId == userId), "Id", "Name");
+            ViewData["Categories"] = new SelectList(_context.Categories.Where(c => c.AppUserId == appUserId), "Id", "Name", selectedFilter);
       
             return View(contacts);
 
@@ -81,12 +88,12 @@ namespace contactPro2.Controllers
         {
             List<Contact> contacts = new List<Contact>();
 
-            string? userId = _userManager.GetUserId(User);
+            //string? userId = _userManager.GetUserId(User);
 
             AppUser? appUser = await _context.Users
                                              .Include(u => u.Contacts)
                                              .ThenInclude(c => c.Categories)
-                                             .FirstOrDefaultAsync(u => u.Id == userId);
+                                             .FirstOrDefaultAsync(u => u.Id == _userId);
             if (appUser != null)
             {
                 if (string.IsNullOrEmpty(searchString))
@@ -105,6 +112,10 @@ namespace contactPro2.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["PageUse"] = "Search";
+            ViewData["SearchTerm"] = searchString;
+            ViewData["Categories"] = new SelectList(_context.Categories.Where(c => c.AppUserId == _userId), "Id", "Name");
 
 
             return View(nameof(Index), contacts);
@@ -133,9 +144,9 @@ namespace contactPro2.Controllers
         // GET: Contacts/Create
         public IActionResult Create()
         {
-            string? userId = _userManager?.GetUserId(User);
+            //string? userId = _userManager?.GetUserId(User);
 
-            ViewData["CategoryList"] = new MultiSelectList(_context.Categories.Where(c => c.AppUserId == userId), "Id", "Name");
+            ViewData["CategoryList"] = new MultiSelectList(_context.Categories.Where(c => c.AppUserId == _userId), "Id", "Name");
             return View();
         }
 
@@ -183,9 +194,9 @@ namespace contactPro2.Controllers
             }
 
             // ModelState is not valid and I am being redirect to the view
-            string? userId = _userManager?.GetUserId(User);
+            //string? userId = _userManager?.GetUserId(User);
 
-            ViewData["CategoryList"] = new SelectList(_context.Categories.Where(c => c.AppUserId == userId), "Id", "Name");
+            ViewData["CategoryList"] = new SelectList(_context.Categories.Where(c => c.AppUserId == _userId), "Id", "Name");
             return View(contact);
         }
 
@@ -208,9 +219,9 @@ namespace contactPro2.Controllers
             // Identify the contact's current Categories (by Id) 
             IEnumerable<int> currentCategories = contact.Categories.Select(c => c.Id);
 
-            string? userId = _userManager.GetUserId(User);
+            //string? userId = _userManager.GetUserId(User);
 
-            ViewData["CategoryList"] = new MultiSelectList(_context.Categories.Where(c => c.AppUserId == userId), "Id", "Name", currentCategories);
+            ViewData["CategoryList"] = new MultiSelectList(_context.Categories.Where(c => c.AppUserId == _userId), "Id", "Name", currentCategories);
             return View(contact);
         }
 
@@ -285,8 +296,8 @@ namespace contactPro2.Controllers
             }
 
 
-            string? userId = _userManager?.GetUserId(User);
-            Contact? contact = await _context.Contacts.FirstOrDefaultAsync(c => c.Id == id && c.AppUserId == userId);;
+            //string? userId = _userManager?.GetUserId(User);
+            Contact? contact = await _context.Contacts.FirstOrDefaultAsync(c => c.Id == id && c.AppUserId == _userId);;
             
             if (contact == null)
             {

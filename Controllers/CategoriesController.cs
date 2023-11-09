@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 namespace contactPro2.Controllers
 {
     [Authorize]
-    public class CategoriesController : Controller
+    public class CategoriesController : CPBaseController
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
@@ -34,9 +34,9 @@ namespace contactPro2.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            string? userId = _userManager.GetUserId(User);
+            //string? userId = _userManager.GetUserId(User);
 
-            IEnumerable<Category> categories = await _context.Categories.Where(c => c.AppUserId == userId)
+            IEnumerable<Category> categories = await _context.Categories.Where(c => c.AppUserId == _userId)
                                                                         .ToListAsync();
 
             return View(categories);
@@ -78,8 +78,8 @@ namespace contactPro2.Controllers
             ModelState.Remove("AppUserId");
             if (ModelState.IsValid)
             {
-                string? userId = _userManager.GetUserId(User);
-                category.AppUserId = userId;
+                //string? userId = _userManager.GetUserId(User);
+                category.AppUserId = _userId;
 
                 _context.Add(category);
                 await _context.SaveChangesAsync();
@@ -88,8 +88,6 @@ namespace contactPro2.Controllers
 
             return View(category);
         }
-
-
 
 
         // GET: Categories/Edit/5
@@ -155,10 +153,10 @@ namespace contactPro2.Controllers
 
             ViewData["SwalMessage"] = swalMessage;
 
-            string? userId = _userManager?.GetUserId(User);
+            //string? userId = _userManager?.GetUserId(User);
             Category? category = await _context.Categories
                                         .Include(c => c.Contacts)
-                                        .FirstOrDefaultAsync(c => c.Id == id && c.AppUserId == userId);
+                                        .FirstOrDefaultAsync(c => c.Id == id && c.AppUserId == _userId);
 
             if (category == null)
             {
@@ -214,10 +212,10 @@ namespace contactPro2.Controllers
                 }
             }
 
-            string? userId = _userManager?.GetUserId(User);
+            //string? userId = _userManager?.GetUserId(User);
             Category? category = await _context.Categories
                                         .Include(c => c.Contacts)
-                                        .FirstOrDefaultAsync(c => c.Id == categoryId && c.AppUserId == userId);
+                                        .FirstOrDefaultAsync(c => c.Id == categoryId && c.AppUserId == _userId);
 
             //testing
             ViewData["SwalMessage"] = swalMessage;
@@ -227,9 +225,6 @@ namespace contactPro2.Controllers
             return View(emailData);
 
         }
-
-
-
 
 
 
@@ -272,44 +267,42 @@ namespace contactPro2.Controllers
         }
 
 
-        //// Get: SearchCategories
-        //public async Task<IActionResult> SearchCategories(string? searchString)
-        //{
-        //    List<Category> categories = new List<Category>();
-
-        //    string? userId = _userManager.GetUserId(User);
-
-        //    AppUser? appUser = await _context.Users
-        //                                     .Include(u => u.Contacts)
-        //                                     .ThenInclude(c => c.Categories)
-        //                                     .FirstOrDefaultAsync(u => u.Id == userId);
-        //    if (appUser != null)
-        //    {
-        //        if (string.IsNullOrEmpty(searchString))
-        //        {
-        //            categories = appUser.Categories.ToList();
-        //        }
-        //        else
-        //        {
-        //            categories = appUser.Categories.ToList();
-
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(nameof(Index), categories);
-        //}
-
-
-
-
         private bool CategoryExists(int id)
         {
             return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
+
+//// Get: SearchCategories
+//public async Task<IActionResult> SearchCategories(string? searchString)
+//{
+//    List<Category> categories = new List<Category>();
+
+//    string? userId = _userManager.GetUserId(User);
+
+//    AppUser? appUser = await _context.Users
+//                                     .Include(u => u.Contacts)
+//                                     .ThenInclude(c => c.Categories)
+//                                     .FirstOrDefaultAsync(u => u.Id == userId);
+//    if (appUser != null)
+//    {
+//        if (string.IsNullOrEmpty(searchString))
+//        {
+//            categories = appUser.Categories.ToList();
+//        }
+//        else
+//        {
+//            categories = appUser.Categories.ToList();
+
+//        }
+
+//    }
+//    else
+//    {
+//        return NotFound();
+//    }
+
+//    return View(nameof(Index), categories);
+//}
+
