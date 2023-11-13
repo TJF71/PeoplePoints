@@ -18,7 +18,7 @@ namespace contactPro2.Models
         // Navigation Properties
         public virtual AppUser? AppUser { get; set; }
 
-        public virtual ICollection<Contact> Contacts { get; set; } = new HashSet<Contact>();
+         public virtual ICollection<Contact> Contacts { get; set; } = new HashSet<Contact>();
 
     }
 }
