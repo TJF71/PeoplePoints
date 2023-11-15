@@ -23,17 +23,20 @@ namespace contactPro2.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IImageService _imageService;
         private readonly IEmailSender _emailService;
+        private readonly IContactProService _contactProService;
 
         public ContactsController(ApplicationDbContext context,
                                     UserManager<AppUser> userManager,
                                     IImageService imageService,
-                                    IEmailSender emailSender)
+                                    IEmailSender emailSender,
+                                    IContactProService contactProService)
 
         {
             _context = context;
             _userManager = userManager;
             _imageService = imageService;
             _emailService = emailSender;
+            _contactProService = contactProService;
         }
 
         // GET: Contacts
@@ -255,28 +258,33 @@ namespace contactPro2.Controllers
                     await _context.SaveChangesAsync();
 
                     // Removing current categories
-                    Contact? updatedContact = await _context.Contacts
-                                                    .Include(c => c.Categories)
-                                                    .FirstOrDefaultAsync(c => c.Id == contact.Id);
+                    //Contact? updatedContact = await _context.Contacts
+                    //                                .Include(c => c.Categories)
+                    //                                .FirstOrDefaultAsync(c => c.Id == contact.Id);
 
-                    updatedContact?.Categories.Clear();
-                    _context.Update(updatedContact);
-                    await _context.SaveChangesAsync();
+                    //updatedContact?.Categories.Clear();
+                    //_context.Update(updatedContact);
+                    //await _context.SaveChangesAsync();
 
 
                     // Adding selected categories
-                    foreach (int categoryId in selected)
+                    //foreach (int categoryId in selected)
+                    //{
+                    //    Category? category = await _context.Categories.FindAsync(categoryId);
+
+                    //    if (contact != null && category != null)
+                    //    {
+                    //        contact.Categories.Add(category);
+                    //    }
+                    //}
+
+                    //await _context.SaveChangesAsync();
+
+                    if(selected != null)
                     {
-                        Category? category = await _context.Categories.FindAsync(categoryId);
-
-                        if (contact != null && category != null)
-                        {
-                            contact.Categories.Add(category);
-                        }
+                        await _contactProService.RemoveCategoriesFromContactAsync(contact.Id);
+                        await _contactProService.AddCategoriesToContactAsync(selected, contact.Id);
                     }
-
-                    await _context.SaveChangesAsync();
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {

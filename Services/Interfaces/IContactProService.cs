@@ -1,10 +1,10 @@
 ﻿namespace contactPro2.Services.Interfaces
 {
-    public class IContactProService
+    public interface IContactProService
     {
 
-        //public Task AddCategoriesToContactAsync(IEnumerable<int> categoryIds, int contactId);
-        //public Task RemoveCategoriesFromContactAsync(int contactId);
+        public Task AddCategoriesToContactAsync(IEnumerable<int> categoryIds, int contactId);
+        public Task RemoveCategoriesFromContactAsync(int contactId);
 
     }
 }
