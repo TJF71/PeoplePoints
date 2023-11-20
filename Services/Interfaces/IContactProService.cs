@@ -7,4 +7,4 @@
         public Task RemoveCategoriesFromContactAsync(int contactId);
 
     }
-}
+}   

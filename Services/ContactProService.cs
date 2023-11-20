@@ -55,14 +55,8 @@ namespace contactPro2.Services
                 _context.Update(contact);
                 await _context.SaveChangesAsync();
             }
-
-
-
-
-
             catch (Exception)
             {
-
                 throw;
             }
         }

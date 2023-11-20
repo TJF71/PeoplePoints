@@ -143,6 +143,7 @@ namespace contactPro2.Controllers
 
             return View(contact);
         }
+       
 
         // GET: Contacts/Create
         public IActionResult Create()

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using MailKit.Security;
 
 
 namespace contactPro2.Services
