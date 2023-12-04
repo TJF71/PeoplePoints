@@ -22,8 +22,11 @@ namespace contactPro2.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
+
             try
             {
+              
+
                 var emailAddress = _emailSettings.EmailAddress ?? Environment.GetEnvironmentVariable("EmailAddress");
                 var emailPasswrd = _emailSettings.EmailPassword ?? Environment.GetEnvironmentVariable("EmailPassword");
                 var emailHost = _emailSettings.EmailHost ?? Environment.GetEnvironmentVariable("EmailHost");

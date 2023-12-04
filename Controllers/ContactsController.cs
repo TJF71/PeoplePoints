@@ -341,6 +341,8 @@ namespace contactPro2.Controllers
         public async Task<IActionResult> EmailContact(EmailData emailData)
         {
 
+            string? swalMessage = string.Empty;
+
             if (ModelState.IsValid)
             {
                 // sweet alert
@@ -353,14 +355,18 @@ namespace contactPro2.Controllers
 
                     // call email service
                     await _emailService.SendEmailAsync(email!, subject!, htmlMessage!);
+                    swalMessage = "Email sent successfully!";
                 }
 
                 catch (Exception )
                 {
+                    swalMessage = "Error, Unable to send email.";
                     throw;
                 }
             }
 
+            ViewBag.Message = swalMessage;
+            ViewData["SwalMessage"] = swalMessage;
             // testing
             return View(emailData);
         }
