@@ -46,10 +46,47 @@ namespace contactPro2.Data
             await dbContextSvc.Database.MigrateAsync();
 
             // Seed some info!
+            await SeedDemoUsersAsync(userManagerSvc, configurationsSvc);
 
         }
+        // Demo Users Seed Method
+        private static async Task SeedDemoUsersAsync(UserManager<AppUser> userManager, IConfiguration configuration)
+        {
+            string? demoLoginEmail = configuration["DemoLoginEmail"] ?? Environment.GetEnvironmentVariable("DemoLoginEmail");
+            string? demoLoginPassword = configuration["DemoLoginPassword"] ?? Environment.GetEnvironmentVariable("DemoLoginPassword");
+
+            AppUser demoUser = new AppUser()
+            {
+                UserName = demoLoginEmail,
+                Email = demoLoginEmail,
+                FirstName = "Demo",
+                LastName = "User",
+                EmailConfirmed = true
+            };
+
+            try
+            {
+                AppUser? appUser = await userManager.FindByEmailAsync(demoLoginEmail!);
+
+                if (appUser == null)
+                {
+                    await userManager.CreateAsync(demoUser, demoLoginPassword!);
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("*************  ERROR  *************");
+                Console.WriteLine("Error Seeding Demo Login User.");
+                Console.WriteLine(exception.Message);
+                Console.WriteLine("***********************************");
+
+                throw;
+            }
+
+        }
+
     }
 
-    
+
 
 }
