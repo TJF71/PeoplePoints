@@ -52,6 +52,7 @@ namespace contactPro2.Models
         }
 
         [Display(Name ="Birth Date")]
+        [DataType(DataType.Date)]
 
         public DateTimeOffset? DateOfBirth { get => _dateOfBirth;
             set

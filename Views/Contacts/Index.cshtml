@@ -34,7 +34,7 @@
     <div class="row">
         <div class="col-12 text-end mb-2">
 
-        @*     asp-action="Create" asp-controller="Categories" *@
+            @*     asp-action="Create" asp-controller="Categories" *@
             <a class="btn btn-primary rounded-pill" asp-action="Create" asp-controller="Contacts">Add<i class="bi bi-person-plus-fill ps-2"></i></a>
         </div>
     </div>
@@ -71,7 +71,7 @@
                                 <div class="col-md-4 square-img-container">
 
                                     <img src="@_ImageService.ConvertByteArrayToFile(contact.ImageData,contact.ImageType)" class="square-img rounded-start">
-     
+
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -80,11 +80,12 @@
                                             @contact.Address1 <br>
                                             @if (!string.IsNullOrEmpty(contact.Address2))
                                             {
-                                              @contact.Address2 <br>                                                
+                                                @contact.Address2 <br>
                                             }
-                                            else {
-                                            @contact.City @contact.State @contact.ZipCode
-                                            }
+                                            @contact.City, @contact.State  @contact.ZipCode
+                                            
+                                           
+
 
                                         </address>
                                         <div class="card-text">
