@@ -70,7 +70,7 @@ namespace contactPro2.Controllers
                 }
 
                 ViewData["PageUse"] = "Fiter";
-                ViewData["FilterTerm"] = category.Name;
+                ViewData["FilterTerm"] = category!.Name;
          
             }
 
