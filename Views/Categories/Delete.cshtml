@@ -4,34 +4,40 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<main class="container">
+    <div class="row">
+        <div class="col-md-4">
 
-<h3>Delete this category?</h3>
-<h3> This cannot be undone.</h3>
-<div>
+            <h3>Delete this category?</h3>
+            <h3> This cannot be undone.</h3>
+                <dl class="row" stlye="nowrap">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt hidden class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.AppUser)
+                    </dt>
+                    <dd hidden class="col-sm-10">
+                        @Html.DisplayFor(model => model.AppUser.Id)
+                    </dd>
+                </dl>
 
-    <hr />
-    <dl class="row" stlye="nowrap">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt hidden class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AppUser)
-        </dt>
-        <dd hidden class = "col-sm-10" >
-            @Html.DisplayFor(model => model.AppUser.Id)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> 
-        
-    </form>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+     
+            <div>
+                <br />
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <img src="/img/PeoplePoints.png" width="400" height="500" class="rounded-3" />
+        </div>
+
+    </div>
+</main>
