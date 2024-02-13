@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using MailKit.Security;
 
-// just a test for git
+// just a test for git part 2
 
 
 namespace contactPro2.Services
