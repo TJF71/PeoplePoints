@@ -148,7 +148,7 @@ main {
     height: fit-content;
 }
 
-.editIcons {
+/*.editIcons {
     font-size: 1.5rem;
     opacity: .9;
     color: var(--tf-primaryColorDark);
@@ -160,6 +160,50 @@ main {
         opacity: 1;
         cursor: pointer;
     }
+*/
+
+.editIcons {
+    position: relative;
+    display: inline-block;
+}
+
+    .editIcons .hover-text {
+        visibility: hidden;
+        opacity: 0;
+        width: 60px;
+        background-color: #0a381c;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        font-size: 12px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%; /* Adjust this value to control the position of the text */
+        left: 50%;
+        margin-left: -30px; /* Adjust this value to center the text */
+        transition: opacity 0.3s;
+    }
+
+        .editIcons .hover-text::after {
+            content: '';
+            position: absolute;
+            top: 100%; /* Adjust this value to control the position of the arrow */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+    .editIcons:hover .hover-text {
+        visibility: visible;
+        opacity: 1;
+    }
+
+
+
+
 
 
 .icon {

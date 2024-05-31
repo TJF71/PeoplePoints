@@ -92,11 +92,28 @@
                                         <div class="card-text">
                                             <span class="fw-bold me-2">Email:</span>@contact.Email
                                         </div>
+
+
+
                                         <div class="fs-4">
-                                            <a class="me-3 editIcons" asp-action="Edit" asp-route-id="@contact.Id"><i class="bi bi-pencil-fill "></i></a>
-                                            <a class="me-3 editIcons" asp-action="EmailContact" asp-route-id="@contact.Id"><i class="bi bi-envelope-fill "></i></a>
-                                            <a class="me-3 editIcons" asp-action="Delete" asp-route-id="@contact.Id"><i class="bi bi-trash-fill text-danger "></i></a>
+                                            <a class="me-3 editIcons" asp-action="Edit" asp-route-id="@contact.Id">
+                                                <i class="bi bi-pencil-fill"></i>
+                                                <span class="hover-text">Edit</span>
+                                            </a>
+                                            <a class="me-3 editIcons" asp-action="EmailContact" asp-route-id="@contact.Id">
+                                                <i class="bi bi-envelope-fill"></i>
+                                                <span class="hover-text">Email Contact</span>
+                                            </a>
+                                            <a class="me-3 editIcons" asp-action="Delete" asp-route-id="@contact.Id">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                                <span class="hover-text">Delete</span>
+                                            </a>
                                         </div>
+
+                                        
+                                        
+                                        
+                                        
                                         <div>
                                             @*Display Categories*@
                                             @foreach (Category category in contact.Categories)
